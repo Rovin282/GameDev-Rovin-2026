@@ -11,7 +11,7 @@ javascript innerHTML value by Rovin</a>
 
 <input id="myNum01" type=number value="4" ><br>
 
-<input type=button value="myEvent squares" on click="{
+<input type=button value="myEvent squares" onclick="{
   let myIn01 = parseFloat(document.getElementById('myNum01').value)
   let myAnswer = myIn01 * myIn01
   document.getElementById('myDiv01').innerHTML = myIn01 + ' squared = ' + myAnswer
@@ -19,5 +19,39 @@ javascript innerHTML value by Rovin</a>
 
 
 
-  <div id="myDiv01">words</div>
+  <div id="myDiv01">...</div>
+</pre>
+
+<pre>
+
+<h4> Example Cubed (myIn02 * myIn02 * myIn02)</h4>
+
+<input id="myNum02" type=number value="4" ><br>
+
+<input type=button value="myEvent squares" onclick="{
+  let myIn02 = parseFloat(document.getElementById('myNum02').value)
+  let myAnswer = myIn02 * myIn02 * myIn02
+  document.getElementById('myDiv02').innerHTML = myIn02 + ' cubed = ' + myAnswer
+  }"> <br>
+
+
+
+  <div id="myDiv02">...</div>
+</pre>
+
+<pre>
+
+<h4> Example Doubled (myIn03 + myIn03)</h4>
+
+<input id="myNum03" type=number value="4" ><br>
+
+<input type=button value="myEvent squares" onclick="{
+  let myIn03 = parseFloat(document.getElementById('myNum03').value)
+  let myAnswer = myIn03 + myIn03
+  document.getElementById('myDiv03').innerHTML = myIn03 + ' doubled = ' + myAnswer
+  }"> <br>
+
+
+
+  <div id="myDiv03">...</div>
 </pre>
