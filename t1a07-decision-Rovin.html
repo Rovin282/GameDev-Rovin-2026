@@ -1,0 +1,45 @@
+Version 0.0.1
+<body style="background-color: 7F7F7F;">
+<h2 align=center>t1a07-decision-Rovin.html</h2>
+
+<a href="https://www.w3schools.com/js/js_if_else.asp">Good reference to Decisions if ... else statments <br>
+Javascript innerHTML value by Rovin </a><br>
+Note: ! = Not, && AND, || = OR
+
+<h4> Example input output code</h4>
+<pre>
+  let myHour = 20
+  if (myHour <18) {
+    let myGreeting = 'Good day';
+  }
+</pre>
+
+<h4> Example working code</h4>
+
+<input id="myNum01" type=number value="4" > <br>
+
+<input type=button value="Simple if Statement for Decision Making" onclick="{
+  let myIn01 = parseFloat(document.getElementById('myNum01').value)
+  if (myIn01 >= 3){
+    document.getElementById('myDiv01').innerHTML = myIn01 + ' is greater than 3'
+  }
+}"> <br><br>
+
+<input type=button value="Complex if" onclick="{
+  let myIn01 = parseFloat(document.getElementById('myNum01').value)
+  if ((myIn01 != 3 || myIn01 > -3) && myIn01 <=100 ){
+    document.getElementById('myDiv01').innerHTML = myIn01 + ' is complex '
+  } else {
+    document.getElementById('myDiv01').innerHTML = myIn01 + ' is not complex ' }
+  }"> <br><br>
+
+
+<input type=button value="is number greater than 5" onclick="{
+  let myIn01 = parseFloat(document.getElementById('myNum01').value)
+  if (myIn01 > 5){
+    document.getElementById('myDiv01').innerHTML = myIn01 + ' is greater than 5'
+  } else {
+	document.getElementById('myDiv01').innerHTML = myIn01 + ' is not greater than 5'}
+}"> <br><br>
+
+  <div id="myDiv01">...</div>
