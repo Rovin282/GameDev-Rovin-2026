@@ -8,6 +8,15 @@
     return myReply
 }
 </script>
+<script>
+
+  function myExampleFunction2(){
+    let myIn02 = parseInt(document.getElementById('myText02').value)
+    let mySum2 = myIn02 + myIn02 + myIn02
+    let myReply2 = myIn02 + ' * ' + ' 3 ' + ' = ' + mySum2
+    return myReply2
+}
+</script>
 
 <h2 align=center>t1a09-functions-by-Rovin.html</h2>
 
@@ -24,4 +33,12 @@ Information can alsop be passed to functions (that's more advanced).
   document.getElementById('myDiv01').innerHTML = myExampleFunction()
 }">
 
-<div id="myDiv01">...</div>
+<div id="myDiv01">...</div><br><br>
+
+<input type=text id="myText02" value="4"><br>
+
+<input type=button value="triple number" onClick="{
+  document.getElementById('myDiv02').innerHTML = myExampleFunction2()
+}">
+
+<div id="myDiv02">...</div>
