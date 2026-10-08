@@ -53,3 +53,17 @@ onMouseWheel<br>
 <i id="myB06" onMouseWheel="{
   document.getElementById('myB06').innerHTML = 'scroll'
 }"> This is italic </i><br><br>
+
+onFocus<br>
+<input type="text" id="myText02" value="hello" onfocus="{
+   document.getElementById('myDiv02').innerHTML = 
+   document.getElementById('myText02').value
+}"><br>
+<div id="myDiv02">...</div><br><br>
+
+onBlur<br>
+<input type="text" id="myText03" value="wow" onblur="{
+   document.getElementById('myDiv03').innerHTML = 
+   document.getElementById('myText03').value
+}"><br>
+<div id="myDiv03">...</div><br><br>
