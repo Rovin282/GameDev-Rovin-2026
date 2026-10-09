@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant Mandelbrot Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Inter', sans-serif;
+        }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <!-- Hint box / Info Toggle in top-left corner -->
+    <div id="myHintBox" class="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-xl border border-white/20 shadow-lg cursor-pointer hover:bg-black/80 transition text-sm flex items-center gap-2 select-none">
+        <span class="text-emerald-400 font-bold">ℹ️</span>
+        <span>Mandelbrot Explorer (Click to learn)</span>
+    </div>
+
+    <!-- Reset View Button -->
+    <div id="myResetBtn" class="absolute top-4 right-4 z-10 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-xl border border-white/20 shadow-lg cursor-pointer hover:bg-black/80 transition text-sm select-none hidden">
+        🔄 Reset View
+    </div>
+
+    <!-- Info Modal -->
+    <div id="myInfoModal" class="absolute inset-0 z-20 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-700 text-white max-w-lg w-full p-6 rounded-2xl shadow-2xl relative">
+            <h2 class="text-2xl font-bold mb-3 text-emerald-400">About the Mandelbrot Fractal</h2>
+            <p class="text-slate-300 text-sm mb-4 leading-relaxed">
+                The Mandelbrot set is defined by the iterative complex polynomial equation:
+            </p>
+            <div class="bg-black/40 p-3 rounded-lg text-center font-mono text-emerald-300 text-lg mb-4 border border-slate-800">
+                Z<sub>n+1</sub> = Z<sub>n</sub><sup>2</sup> + C
+            </div>
+            <p class="text-slate-300 text-sm mb-4 leading-relaxed">
+                Starting with <em>Z<sub>0</sub> = 0</em>, for each point <em>C</em> in the complex plane, we repeatedly calculate the sequence. If the magnitude of <em>Z</em> remains bounded (does not escape to infinity), the point belongs to the Mandelbrot set (shown in black).
+            </p>
+            <ul class="text-slate-300 text-sm space-y-2 mb-6 list-disc list-inside">
+                <li><strong>Mouse Move:</strong> Positions the zoom preview box.</li>
+                <li><strong>Mouse Wheel:</strong> Dynamically resizes the preview box and zoom magnification.</li>
+                <li><strong>Left Click:</strong> Instantly zooms into the targeted preview region.</li>
+            </ul>
+            <button id="myCloseModalBtn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-xl transition shadow-lg">
+                Got it, let's explore!
+            </button>
+        </div>
+    </div>
+
+    <!-- Controls / Status Toast -->
+    <div class="absolute bottom-4 left-4 z-10 bg-black/60 backdrop-blur-md text-white/80 px-4 py-2 rounded-xl border border-white/10 text-xs pointer-events-none select-none">
+        Wheel: Resize Zoom Box | Click: Zoom In | Colors Cycle Smoothly
+    </div>
+
+    <script>
+        // Global variables following camelCase and 'my' prefix convention
+        const myCanvas = document.getElementById('myCanvas');
+        const myCtx = myCanvas.getContext('2d');
+        const myHintBox = document.getElementById('myHintBox');
+        const myInfoModal = document.getElementById('myInfoModal');
+        const myCloseModalBtn = document.getElementById('myCloseModalBtn');
+        const myResetBtn = document.getElementById('myResetBtn');
+
+        // Fractal View State
+        let myCenterX = -0.75;
+        let myCenterY = 0.0;
+        let myScale = 3.0; // Width in complex plane units
+        let myMaxIterations = 120;
+        let myColorOffset = 0.0;
+
+        // Preview Box State (relative width as a fraction of screen width, e.g., 0.4)
+        let myCameraBoxFraction = 0.4;
+        let myMouseX = window.innerWidth / 2;
+        let myMouseY = window.innerHeight / 2;
+        let myIsMouseInside = false;
+
+        // Resize Canvas to Fullscreen
+        function myResizeCanvas() {
+            myCanvas.width = window.innerWidth;
+            myCanvas.height = window.innerHeight;
+            myRequestRender();
+        }
+
+        // Render Trigger with requestAnimationFrame debouncing
+        let myRenderRequested = false;
+        function myRequestRender() {
+            if (!myRenderRequested) {
+                myRenderRequested = true;
+                requestAnimationFrame(async () => {
+                    await myRenderMandelbrotFrame();
+                    myRenderRequested = false;
+                });
+            }
+        }
+
+        // Main Mandelbrot rendering loop
+        async function myRenderMandelbrotFrame() {
+            const width = myCanvas.width;
+            const height = myCanvas.height;
+            const imageData = myCtx.createImageData(width, height);
+            const data = imageData.data;
+
+            const aspectRatio = width / height;
+            const currentScaleX = myScale;
+            const currentScaleY = myScale / aspectRatio;
+
+            const startX = myCenterX - currentScaleX / 2;
+            const startY = myCenterY - currentScaleY / 2;
+
+            // Adaptive max iterations based on zoom depth
+            const zoomDepthFactor = Math.max(1, -Math.log10(myScale) * 35);
+            const dynamicMaxIter = Math.floor(Math.min(1500, Math.max(100, myMaxIterations + zoomDepthFactor)));
+
+            // Compute pixels row by row
+            for (let py = 0; py < height; py++) {
+                const c_im = startY + (py / height) * currentScaleY;
+                for (let px = 0; px < width; px++) {
+                    const c_re = startX + (px / width) * currentScaleX;
+
+                    let z_re = 0.0;
+                    let z_im = 0.0;
+                    let n = 0;
+                    let isEscaped = false;
+
+                    // Unrolled optimization loop for iteration
+                    while (n < dynamicMaxIter) {
+                        const z_re2 = z_re * z_re;
+                        const z_im2 = z_im * z_im;
+
+                        if (z_re2 + z_im2 > 16.0) {
+                            isEscaped = true;
+                            break;
+                        }
+
+                        // Z_{n+1} = Z_n^2 + C
+                        z_im = 2.0 * z_re * z_im + c_im;
+                        z_re = z_re2 - z_im2 + c_re;
+                        n++;
+                    }
+
+                    const index = (py * width + px) * 4;
+
+                    if (!isEscaped) {
+                        // Inside set = Black
+                        data[index] = 0;
+                        data[index + 1] = 0;
+                        data[index + 2] = 0;
+                        data[index + 3] = 255;
+                    } else {
+                        // Smooth coloring formula for vibrant continuous contours
+                        const logZn = Math.log(z_re * z_re + z_im * z_im) / 2;
+                        const nu = Math.log(logZn / Math.LN2) / Math.LN2;
+                        const smoothIter = (n + 1 - nu + myColorOffset) * 0.15;
+
+                        // Vibrant trigonometric color cycling
+                        const red = Math.floor(Math.sin(smoothIter + 0.0) * 127 + 128);
+                        const green = Math.floor(Math.sin(smoothIter + 2.0) * 127 + 128);
+                        const blue = Math.floor(Math.sin(smoothIter + 4.0) * 127 + 128);
+
+                        data[index] = red;
+                        data[index + 1] = green;
+                        data[index + 2] = blue;
+                        data[index + 3] = 255;
+                    }
+                }
+            }
+
+            myCtx.putImageData(imageData, 0, 0);
+
+            // Draw dashed preview rectangle overlay
+            if (myIsMouseInside) {
+                myDrawPreviewBox(width, height);
+            }
+        }
+
+        // Draw dashed preview rectangle tracking mouse
+        function myDrawPreviewBox(width, height) {
+            const boxWidth = width * myCameraBoxFraction;
+            const boxHeight = height * myCameraBoxFraction;
+            const boxLeft = myMouseX - boxWidth / 2;
+            const boxTop = myMouseY - boxHeight / 2;
+
+            myCtx.save();
+            myCtx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+            myCtx.lineWidth = 2;
+            myCtx.setLineDash([6, 6]);
+            myCtx.strokeRect(boxLeft, boxTop, boxWidth, boxHeight);
+
+            // Outer dark contrasting shadow for high visibility
+            myCtx.strokeStyle = 'rgba(0, 0, 0, 0.6)';
+            myCtx.lineWidth = 1;
+            myCtx.setLineDash([6, 6]);
+            myCtx.lineDashOffset = 6;
+            myCtx.strokeRect(boxLeft, boxTop, boxWidth, boxHeight);
+            myCtx.restore();
+        }
+
+        // Continuous color cycling animation loop
+        function myAnimateColorCycle() {
+            myColorOffset += 0.04;
+            myRequestRender();
+            requestAnimationFrame(myAnimateColorCycle);
+        }
+
+        // Direct event property assignments
+        window.onresize = myResizeCanvas;
+
+        myCanvas.onmousemove = function(myEvent) {
+            myMouseX = myEvent.clientX;
+            myMouseY = myEvent.clientY;
+            myIsMouseInside = true;
+            myRequestRender();
+        };
+
+        myCanvas.onmouseleave = function() {
+            myIsMouseInside = false;
+            myRequestRender();
+        };
+
+        myCanvas.onwheel = function(myEvent) {
+            myEvent.preventDefault();
+            // Dynamically resize preview box fraction
+            const zoomIntensity = 0.08;
+            if (myEvent.deltaY < 0) {
+                myCameraBoxFraction = Math.max(0.15, myCameraBoxFraction - zoomIntensity);
+            } else {
+                myCameraBoxFraction = Math.min(0.85, myCameraBoxFraction + zoomIntensity);
+            }
+            myRequestRender();
+        };
+
+        myCanvas.onclick = function(myEvent) {
+            const width = myCanvas.width;
+            const height = myCanvas.height;
+            const aspectRatio = width / height;
+            const currentScaleX = myScale;
+            const currentScaleY = myScale / aspectRatio;
+
+            const startX = myCenterX - currentScaleX / 2;
+            const startY = myCenterY - currentScaleY / 2;
+
+            // Calculate complex coordinates of clicked center / mouse position
+            myCenterX = startX + (myEvent.clientX / width) * currentScaleX;
+            myCenterY = startY + (myEvent.clientY / height) * currentScaleY;
+
+            // Zoom in scale factor corresponding to preview box size fraction
+            myScale *= myCameraBoxFraction;
+
+            // Show reset button once zoomed in
+            myResetBtn.classList.remove('hidden');
+
+            myRequestRender();
+        };
+
+        // Modal interactions
+        myHintBox.onclick = function() {
+            myInfoModal.classList.remove('hidden');
+        };
+
+        myCloseModalBtn.onclick = function() {
+            myInfoModal.classList.add('hidden');
+        };
+
+        myResetBtn.onclick = function() {
+            myCenterX = -0.75;
+            myCenterY = 0.0;
+            myScale = 3.0;
+            myCameraBoxFraction = 0.4;
+            myResetBtn.classList.add('hidden');
+            myRequestRender();
+        };
+
+        // Initial setup and startup
+        window.onload = function() {
+            myResizeCanvas();
+            // Start vibrant color cycling loop
+            requestAnimationFrame(myAnimateColorCycle);
+        };
+    </script>
+</body>
+</html>
