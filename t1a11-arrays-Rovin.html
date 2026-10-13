@@ -1,0 +1,78 @@
+<body style="background-color: 7F7F7F;">
+<h2 align=center>t1a11-arrays-Rovin.html</h2>
+
+<a href="">Good reference to no link</a><br>
+
+<h4> Example working Array code</h4>
+
+Max Array Entry: <input type=number id="myText01" value="3"><br>
+
+<input type=button value="Example onClick" onClick="{
+  let myTemp = document.getElementById('myText01').value
+  let mySum = ''
+  document.getElementById('myDiv01').innerHTML = ' '
+
+  myArray = new Array()
+  myArray[0] = 'Fred'
+  myArray[1] = 'Mary'
+  myArray[2] = 'Lizzy'
+
+  for (let myLoop=0; myLoop < myTemp; myLoop++){
+    mySum += 'Loop #: ' + myLoop + ' array entry: ' + myArray[myLoop] +'<br>'
+  }
+  document.getElementById('myDiv01').innerHTML = mySum
+}">
+
+<div id="myDiv01">...</div>
+<br><br>
+You do more arrays that do different things, hopefully some with numbers.<br><br>
+
+Array with numbers <br>
+Max Array Entry: <input type=number id="myText02" value="6"><br>
+
+<input type=button value="Example onClick" onClick="{
+  let myTemp2 = document.getElementById('myText02').value
+  let mySum2 = ''
+  document.getElementById('myDiv02').innerHTML = ' '
+
+  myArray2 = new Array()
+  myArray2[0] = '2'
+  myArray2[1] = '4'
+  myArray2[2] = '6'
+  myArray2[3] = '8'
+  myArray2[4] = '10'
+  myArray2[5] = '12'
+
+  for (let myLoop2=0; myLoop2 < myTemp2; myLoop2++){
+    mySum2 += 'Loop #: ' + myLoop2 + ' array entry: ' + myArray2[myLoop2] +'<br>'
+  }
+  document.getElementById('myDiv02').innerHTML = mySum2
+}">
+
+<div id="myDiv02">...</div>
+<br><br>
+
+Array with numbers and words <br>
+Max Array Entry: <input type=number id="myText03" value="6"><br>
+
+<input type=button value="Example onClick" onClick="{
+  let myTemp3 = document.getElementById('myText03').value
+  let mySum3 = ''
+  document.getElementById('myDiv03').innerHTML = ' '
+
+  myArray3 = new Array()
+  myArray3[0] = '2'
+  myArray3[1] = 'words'
+  myArray3[2] = '4'
+  myArray3[3] = 'more words'
+  myArray3[4] = '6'
+  myArray3[5] = 'even more words'
+
+  for (let myLoop3=0; myLoop3 < myTemp3; myLoop3++){
+    mySum3 += 'Loop #: ' + myLoop3 + ' array entry: ' + myArray3[myLoop3] +'<br>'
+  }
+  document.getElementById('myDiv03').innerHTML = mySum3
+}">
+
+<div id="myDiv03">...</div>
+<br><br>
