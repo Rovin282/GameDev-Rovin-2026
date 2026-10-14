@@ -1,7 +1,7 @@
 <body style="background-color: 7F7F7F;">
 <!DOCTYPE html>
 
-<h2>t1a06-Proper-and-Variables.html</h2>
+<h2 align=center>t1a06-Proper-and-Variables.html</h2>
 <html lang="en">
 
 <head>
@@ -13,11 +13,13 @@
   <script>
     function sayHello() {
       myNum = 3;
+      myString2 = ' words ';
       myString = ' Hello ';
+      myString3 = ' wow ' + ' more words ' + 10;
       myFloat = 17.5;
       myBool = true;
       myOut = document.getElementById('myDiv01');
-      myOut.innerHTML = myNum + myString + myFloat + ', ' + myBool;
+      myOut.innerHTML = myNum + ' <br> ' + myString2 + ' <br> ' + myString + ' <br> ' + myString3 + ' <br> ' + myFloat + ', ' + ' <br> ' + myBool;
       if (myBool) {myOut.innerHTML += ', WOW';}
     }
   </script>
@@ -28,3 +30,4 @@
   <div id="myDiv01">...</div>
 </body>
 </html>
+
