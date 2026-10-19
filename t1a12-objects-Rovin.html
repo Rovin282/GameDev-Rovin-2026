@@ -1,0 +1,57 @@
+<h2 align=center>t1a12-objects-Rovin.html</h2>
+<body style="background-color: 7F7F7F;">
+<script>
+  // What might be a good idea to declare here? OBJECTS!!!!!!!!!!!!! and whatnot
+    let myObject = {
+    'words' : '<u>This is an underlined sentence.</u>',
+    'numbers1'  : 125,
+    'numbers2'       : 234,
+    'words2'  : '<b> This is a bold sentence </b>',
+    'type'  : '<input value="you can type here">',
+    'info' : 'myObject is in the script tag.'
+  }
+</script>
+
+
+<a href="https://www.w3schools.com/js/js_objects.asp">Good reference to Javascript Objects (you find one)(damn.)(hey i found one. probably.)</a><br>
+
+Objects are stored named variables
+
+
+
+<h4> Example working Objects code</h4>
+
+Nothing: <input type=text id="myText01" value="Useless at the moment"><br>
+
+<input type=button value="Example Object Set and Show" onClick="{
+
+  let myPerson = {
+    'firstName' : 'John',
+    'lastName'  : 'Doe',
+    'age'       : 50,
+    'eyeColor'  : 'blue',
+  }
+
+  document.getElementById('myDiv01').innerHTML = '<br>myPerson Object has properties: <br>'
+  document.getElementById('myDiv01').innerHTML += 'firstName: ' + myPerson.firstName + '<br>'
+  document.getElementById('myDiv01').innerHTML += 'lastName: ' + myPerson.lastName + '<br>'
+  document.getElementById('myDiv01').innerHTML += 'age: ' + myPerson.age + '<br>'
+  document.getElementById('myDiv01').innerHTML += 'eyeColor: ' + myPerson.eyeColor + '<br>'
+  }">
+
+  <div id="myDiv01">...</div><br><br>
+
+  <b> Lets talk local and global variables, why might it be best to declare the object in the script tag?</b>
+  <br> So you dont need to type the object out multiple times.<br><br>
+
+<input type=button value="show object" onClick="{
+  document.getElementById('myDiv02').innerHTML = '<br>myObject Object has properties: <br>'
+  document.getElementById('myDiv02').innerHTML += 'words: ' + myObject.words + '<br>'
+  document.getElementById('myDiv02').innerHTML += 'numbers1: ' + myObject.numbers1 + '<br>'
+  document.getElementById('myDiv02').innerHTML += 'numbers2: ' + myObject.numbers2 + '<br>'
+  document.getElementById('myDiv02').innerHTML += 'words2: ' + myObject.words2 + '<br>'
+  document.getElementById('myDiv02').innerHTML += 'info: ' + myObject.info + '<br>'
+  document.getElementById('myDiv02').innerHTML += 'type: ' + myObject.type + '<br>'
+  }">
+
+  <div id="myDiv02">...</div><br><br>
