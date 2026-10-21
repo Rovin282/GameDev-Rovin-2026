@@ -1,0 +1,76 @@
+<script>
+
+  // using a script tag to make the class global
+  class myAnimal {
+    constructor(passName, passAge, passAurmire, passType) { 
+      this.myName = passName;
+      this.myAge = passAge;
+      this.myAurmire = passAurmire;
+      this.myType = passType;
+    }
+    myShow(){
+      document.getElementById('myDiv01').innerHTML = 'Hello '+ this.myName+'<br>' + 'i am ' + this.myAge
+    }
+  } // end class myAnimal
+  
+</script>
+<body style="background-color: 7F7F7F;">
+<h2 align=center>t1a14-extend-class-by-Rovin.html</h2>
+Extending a pre-existing Class<br>
+
+<h4>Example working Classes code</h4>
+
+<input type=button value="Example Class Set and Show Class Animal" onClick="{
+
+  let myDog = new myAnimal('Snickers', 5, 'test', 'testagain')
+  myDog.myShow()
+
+}">
+
+<h4>Example extending Class code</h4>
+Nothing: <input type=text id="myText01" value="Useless at the moment"><br>
+
+<input type=button value="Example Extend Class Animal" onClick="{
+
+  class myCat extends myAnimal {
+
+    myShow(){
+      document.getElementById('myDiv01').innerHTML = this.myName + ' is a great cat<br>' + 'i am ' + this.myAge
+      }
+  } // end extended class myCat
+
+    let myPet = new myCat('Fluffy', 14, 'test', 'testagain')
+    myPet.myShow()
+
+  }"><br><br>
+
+<input type=button value="extend class" onClick="{
+
+  class myAsunder extends myAnimal {
+
+    myShow(){
+      document.getElementById('myDiv01').innerHTML = this.myName + ' is a great person<br>' + 'he is ' + this.myAge + '<br>' + this.myAurmire
+      }
+  } // end extended class myAsunder
+
+    let myKahradian = new myAsunder('Kevin', 20, '<u>He is a Human</u>', '<input>')
+    myKahradian.myShow()
+
+  }"><br><br>
+
+<input type=button value="extend class again" onClick="{
+
+  class myAsunder2 extends myAnimal {
+
+    myShow(){
+      document.getElementById('myDiv01').innerHTML = this.myName + ' is an object<br>' + 'it has ' + this.myAge + ' sides<br>' + this.myAurmire + '<br>hey look you can type: ' + this.myType
+      }
+  } // end extended class myAsunder2
+
+    let myKahradian2 = new myAsunder2('cube', 6, '<u>its just a cube</u>', '<input>')
+    myKahradian2.myShow()
+
+  }">
+
+
+<div id="myDiv01">...</div>
