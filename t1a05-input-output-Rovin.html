@@ -1,3 +1,4 @@
+<body style="background-color: 7F7F7F;">
 <h2 align=center>t1a05-input-output-Rovin.html</h2>
 
 <a href="https://www.w3schools.com/jsref/prop_html_innerhtml.asp"> Good reference to input output
@@ -15,7 +16,7 @@ javascript innerHTML value by Rovin</a>
   let myIn01 = parseFloat(document.getElementById('myNum01').value)
   let myAnswer = myIn01 * myIn01
   document.getElementById('myDiv01').innerHTML = myIn01 + ' squared = ' + myAnswer
-  }"> <br>
+  }">
 
 
 
@@ -32,7 +33,7 @@ javascript innerHTML value by Rovin</a>
   let myIn02 = parseFloat(document.getElementById('myNum02').value)
   let myAnswer = myIn02 * myIn02 * myIn02
   document.getElementById('myDiv02').innerHTML = myIn02 + ' cubed = ' + myAnswer
-  }"> <br>
+  }">
 
 
 
@@ -49,9 +50,28 @@ javascript innerHTML value by Rovin</a>
   let myIn03 = parseFloat(document.getElementById('myNum03').value)
   let myAnswer = myIn03 + myIn03
   document.getElementById('myDiv03').innerHTML = myIn03 + ' doubled = ' + myAnswer
-  }"> <br>
+  }">
 
 
 
   <div id="myDiv03">...</div>
+</pre>
+
+  <pre>
+
+<h4> Example Divide (myIn04/myIn05)</h4>
+
+<input id="myNum04" type=number value="4" ><br>
+<input id="myNum05" type=number value="2" ><br>
+    
+<input type=button value="myEvent divide 2 numbers" onclick="{
+  let myIn04 = parseFloat(document.getElementById('myNum04').value)
+  let myIn05 = parseFloat(document.getElementById('myNum05').value)
+  let myAnswer = myIn04 / myIn05
+  document.getElementById('myDiv04').innerHTML = myIn04 + ' / ' + myIn05 + ' = ' + myAnswer
+  }">
+
+
+
+  <div id="myDiv04">...</div>
 </pre>
