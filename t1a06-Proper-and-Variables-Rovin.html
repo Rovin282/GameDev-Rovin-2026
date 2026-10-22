@@ -1,6 +1,5 @@
 <body style="background-color: 7F7F7F;">
 <!DOCTYPE html>
-
 <h2 align=center>t1a06-Proper-and-Variables.html</h2>
 <html lang="en">
 
@@ -15,11 +14,13 @@
       myNum = 3;
       myString2 = ' words ';
       myString = ' Hello ';
-      myString3 = ' wow ' + ' more words ' + 10;
+      myString3 = ' <u>wow</u> ' + ' <i>more words</i> ' + 10;
+      myString4 = 'you can type here: ' + '<input>'
+      myButton = 'button that does nothing: ' + '<input type=button value="hello">'
       myFloat = 17.5;
       myBool = true;
       myOut = document.getElementById('myDiv01');
-      myOut.innerHTML = myNum + ' <br> ' + myString2 + ' <br> ' + myString + ' <br> ' + myString3 + ' <br> ' + myFloat + ', ' + ' <br> ' + myBool;
+      myOut.innerHTML = myNum + ' <br> ' + myString2 + ' <br> ' + myString + ' <br> ' + myString3 + ' <br> ' + myString4 + ' <br> ' + myButton + ' <br> ' + myFloat + ', ' + ' <br> ' + myBool;
       if (myBool) {myOut.innerHTML += ', WOW';}
     }
   </script>
