@@ -17,7 +17,16 @@
     return myReply2
 }
 </script>
+<script>
 
+  function myExampleFunction3(){
+    let myIn03 = parseInt(document.getElementById('myText03').value)
+    let mySum3 = myIn03 / 2
+    let myReply3 = myIn03 + ' / ' + ' 2 ' + ' = ' + mySum3
+    return myReply3
+}
+</script>
+  
 <h2 align=center>t1a09-functions-by-Rovin.html</h2>
 
 <a href="https://www.w3schools.com/js/js_functions.asp">Good reference to Javascript functions</a><br>
@@ -34,7 +43,7 @@ Information can alsop be passed to functions (that's more advanced).
 }">
 
 <div id="myDiv01">...</div><br><br>
-
+<h4> Triple Number</h4>
 <input type=text id="myText02" value="4"><br>
 
 <input type=button value="triple number" onClick="{
@@ -42,3 +51,11 @@ Information can alsop be passed to functions (that's more advanced).
 }">
 
 <div id="myDiv02">...</div>
+<h4> Half Number</h4>
+  <input type=text id="myText03" value="4"><br>
+
+<input type=button value="half number" onClick="{
+  document.getElementById('myDiv03').innerHTML = myExampleFunction3()
+}">
+
+<div id="myDiv03">...</div>
