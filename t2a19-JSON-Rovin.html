@@ -1,32 +1,69 @@
 <h1 align="center">t2a19-json-Rovin.html</h1>
 <body style="background-color: 7F7F7F;">
 
- <script>
-   async function fetchData(url){
-     const response = await fetch(url);
-     const data = await response.json();
-     console.log(data);
 
-     const myJson = JSON.stringify(data, null, 2);
-     document.getElementById('myDiv1').innerHTML = `<pre>${myJson}</pre>`;
+<script>
 
-     document.getElementById('myDiv1').innerHTML += `<img src="${data.image}" alt="Random Image" style="max-width: 100%; height: auto;">`;
-     
-   }
-   
+async function fetchData(url) {
+
+    const response = await fetch(url);
+
+    // Get the data
+    let data = await response.json();
+
+    console.log(data);
+
+    // Show the JSON
+    const myJson = JSON.stringify(data, null, 2);
+
+    document.getElementById('myDiv1').innerHTML =
+        '<pre>' + myJson + '</pre>';
+
+    // Find the image
+    let imageUrl = '';
+
+    if (data.image) {
+        imageUrl = data.image;
+    }
+    else if (data.url) {
+        imageUrl = data.url;
+    }
+    else if (data.message) {
+        imageUrl = data.message;
+    }
+    else if (data[0] && data[0].url) {
+        imageUrl = data[0].url;
+    }
+    else if (data[0]) {
+        imageUrl = data[0];
+    }
+
+    // Display the image
+    if (imageUrl) {
+        document.getElementById('myDiv1').innerHTML +=
+            '<img src="' + imageUrl +
+            '" style="max-width: 400px; height: auto;">';
+    }
+
+}
  </script>
 
- <select id="mySelect" size="1" onchange="fetchData(this.value)">
-   <option ></option>
-   <option value="https://randomfox.ca/floof/">randomfox</option>
-   <option value="https://random.dog/woof.json">randomdog</option>
-   <option value="https://api.thecatapi.com/v1/images/search">randomcat</option>
-   <option value="https://random-d.uk/api/v2/random">randomduck</option>
-   <option value="https://placebear.com/400/300">randombear</option>
-   <option value="https://some-random-api.com/animal/lizard">randomlizard</option>
-   <option value="https://some-random-api.com/animal/koala">randomkoala</option>
-   <option value="https://some-random-api.com/animal/panda">randompanda</option>
-   <option value="https://shibe.online/api/birds">randombird</option>
- </select>
 
- <div id="myDiv1">...</div>
+<select id="mySelect" size="1" onchange="fetchData(this.value)">
+
+    <option value=""> </option>
+
+    <option value="https://randomfox.ca/floof/">randomfox</option>
+    <option value="https://random.dog/woof.json">randomdog</option>
+    <option value="https://api.thecatapi.com/v1/images/search">randomcat</option>
+    <option value="https://random-d.uk/api/v2/random">randomduck</option>
+    <option value="https://some-random-api.com/animal/lizard">randomlizard</option>
+    <option value="https://some-random-api.com/animal/koala">randomkoala</option>
+    <option value="https://some-random-api.com/animal/panda">randompanda</option>
+    <option value="https://shibe.online/api/birds">randombird</option>
+
+</select>
+
+<div id="myDiv1">...</div>
+
+</body>
