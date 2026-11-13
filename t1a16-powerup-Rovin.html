@@ -5,30 +5,30 @@
 // STEP 1: Define a global object named `myHero`
 // Properties needed: name (string), power (number, starting at 100), comment (string)
 let myHero = {
-   name: 'Captain Code',
-   power: 100,
-   comment: 'Ready for training!'
+    name: 'Captain Code',
+    power: 100,
+    comment: 'Ready for training!'
 };
 
+
 // STEP 2: Write a function named `trainHero()` that reduces power and checks comments
-function trainHero(){
-   // Write your code here:
-   // - Subtract 10 from myHero.power
-   // - Use if / else if / else statements to change myHero.comment based on myHero.power
-   // - If myHero.power <= 0:
-   //     1. Show an alert() warning the user
-   //     2. Set myHero.comment to a faint/reset message
-   //     3. Reset myHero.power back to 100
-   let myHero.power = myHero.power - 10
-  if (myHero.power < 50) {
-    let myHero.comment = 'Low power.'
-  }
-  if (myHero.power <= 0) {
-    let myHero.comment = 'dead'
-    let myHero.power = 100
-    alert('you lose.')
+function trainHero() {
+
+    myHero.power = myHero.power - 10;
+
+    if (myHero.power <= 0) {
+        alert('You lose!');
+        myHero.comment = 'why would you kill him';
+        myHero.power = 100;
+    }
+    else if (myHero.power < 50) {
+        myHero.comment = 'Low power!';
+    }
+    else {
+        myHero.comment = 'High power!';
+    }
 }
-}
+
 </script>
 </head>
 
@@ -45,6 +45,7 @@ Student Name Rovin, Date October 27, 2026, Assignment Title: Stateful Object Ass
 5. Complete the <code>onclick</code> code below to invoke <code>trainHero()</code> and display the updated object data inside <code>myDiv01</code>.
 </fieldset>
 
+
 <input type=button value="Train Hero (-10 Power)" onclick="{
    // STEP 3: Call your trainHero() function here
 trainHero()
@@ -54,7 +55,12 @@ trainHero()
    // STEP 4: Output the updated hero object details into myDiv01
    // (Display Hero Name, Remaining Power, and Coach's Comment)
   //    document.getElementById('myDiv01').innerHTML = 'The Input was ' + myHero.power
-document.getElementById('myDiv01').innerHTML = 'The Input was ' + myHero.power + '<br> Comment: ' + myHero.comment
-}"><br><br>
+    document.getElementById('myDiv01').innerHTML =
+    'Hero Name: ' + myHero.name +
+    '<br>Remaining Power: ' + myHero.power +
+    '<br>Coach Comment: ' + myHero.comment;
+
+}">
+<br><br>
 
 <div id="myDiv01">Click the button above to begin training! Initial Power: 100</div>
