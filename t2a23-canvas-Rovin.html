@@ -1,4 +1,5 @@
 <h2 align="center">t2a23-canvas-Rovin.html</h2>
+<body style="background-color: 7F7F7F;">
 Click the button to draw basic shapes, then ask AI to help you add more!<br><br>
 
 <input type="button" value="Draw Basic Shapes" onclick="{
@@ -28,6 +29,14 @@ Click the button to draw basic shapes, then ask AI to help you add more!<br><br>
   myContext.fillStyle = 'red';
   myContext.font = '24px Arial';
   myContext.fillText('Hello World!', 30, 180); // ('text', x, y)
+
+  // 6. slop
+  myContext.beginPath();
+  myContext.lineWidth = 3;
+  myContext.strokeStyle = 'yellow';
+  myContext.moveTo(20,220);        // Start point (x, y)
+  myContext.lineTo(150, 250);      // End point (x,y)
+  myContext.stroke();
 }"><br><br>
 
 <!-- Smaller canvas so everything fits on a 3/4 of a page -->
