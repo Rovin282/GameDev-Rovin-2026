@@ -98,3 +98,11 @@
 }"><br><br>
 
 <textarea id="myArea03" rows=4 cols=70></textarea><br>
+
+<h3>reverse text</h3>
+<input type="button" value="Reverse Text" onclick="
+let text = document.getElementById('myArea01').value;
+document.getElementById('myArea04').value = text.split('').reverse().join('');
+">
+<br><br>
+<textarea id="myArea04" rows="3" cols="70"></textarea>
