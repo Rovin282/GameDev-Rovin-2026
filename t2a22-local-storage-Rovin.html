@@ -15,25 +15,31 @@ Use local storage to make a to-do list
 }">   
 
 Text example: <input id="myText1" type=text size=70 value="" placeholder="Write here to store"><br>
-<br><br>
-
-Something: <input id="myText2" type=text size=70 value="" placeholder="somethign"><br>
 
 <input type="button" value="Store Text" onClick="{
    localStorage.setItem('myStoredText', document.getElementById('myText1').value)
+   alert(document.getElementById('myText1').value + ' \nHas been stored')
    document.getElementById('myText1').value = ''
-
-   localStorage.setItem('myStoredText2', document.getElementById('myText2').value)
-   document.getElementById('myText2').value = ''
-
-  alert("stuff stored")
 }">
 
 <input type="button" value="Retrieve Text" onClick="{
    document.getElementById('myText1').value = localStorage.getItem('myStoredText')
+}"> <br><br>
+
+To-do list: <br>
+<li> <input id="myText2" type=text size=70 value="" placeholder="Write here"> <br>
+   Completed? <input id="myCheckbox1" type=checkbox><br>
+<li> <input id="myText2" type=text size=70 value="" placeholder="Write here"> <br>
+   Completed? <input id="myCheckbox2" type=checkbox><br>
+<li> <input id="myText2" type=text size=70 value="" placeholder="Write here"> <br>
+   Completed? <input id="myCheckbox3" type=checkbox><br><br>
+
+<input type="button" value="Store" onClick="{
+   localStorage.setItem('myStoredText2', document.getElementById('myText2').value)
+   alert('Stored.')
+   document.getElementById('myText2').value = ''
+}">
+
+<input type="button" value="Retrieve" onClick="{
    document.getElementById('myText2').value = localStorage.getItem('myStoredText2')
 }"> 
-
-
-
-
