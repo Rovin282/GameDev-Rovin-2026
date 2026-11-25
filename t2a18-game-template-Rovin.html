@@ -38,6 +38,13 @@ function myCheckHit(){
        location = 't2a18-game-template-Rovin.html'  // go to your next level, name that later or somethign idk
    }
 
+function myCheckHi2(){
+   if ( myHitOther('myImg01','myImg02') ){
+       alert('you lose')  
+       document.getElementById('myImg01').style.right = '20px'
+       location = 't2a18-game-template-Rovin.html'  // go to your next level, name that later or somethign idk
+   }
+
 
    // more if statements here like the above
 
@@ -70,6 +77,6 @@ function myCheckHit(){
    
 <input type=button value="Image Left Fast Button" onTouchStart="{this.click(); event.preventDefault();}" onclick="{
   document.getElementById('myImg01').style.right = parseInt(document.getElementById('myImg01').style.right) + 10 + 'px'
-  myCheckHit()     // checks for all collisions
+  myCheckHit2()     // checks for all collisions
 }"><br><br>
 
